@@ -5,6 +5,7 @@ TAG = '# Blocked websites'
 HOSTS_PATH = '/etc/hosts'
 WEBSITES = "websites.txt"
 
+# Will block websites in websites.txt or a file given as param
 def block(file_name):
 
     with open(file_name, 'r') as f:

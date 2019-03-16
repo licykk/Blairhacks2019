@@ -1,3 +1,4 @@
+#A class that is the object for schedule items 
 class ScheduleItem:
     def __init__(self, name, category, duration):
         self.name = name

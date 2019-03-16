@@ -1,7 +1,9 @@
 from Scheduler import Scheduler
 from ScheduleItem import ScheduleItem
 
-schedulethings = [["Math", "Homework", 35], ["Shower", "Chores", 20], ["Cooking", "Chores", 40]]
+#tests classes, combines other classes
+
+schedulethings = [["Math", "Homework", 15], ["Shower", "Chores", 20], ["Cooking", "Chores", 40]]
 
 schedule = []
 
@@ -12,3 +14,4 @@ for a in schedulethings:
 scheduler = Scheduler()
 scheduler.setSchedule(schedule)
 print(scheduler.schedule[0].duration)
+scheduler.cycle(schedule[0])
