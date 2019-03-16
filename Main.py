@@ -12,6 +12,12 @@ window.geometry('700x700')
 lbl1 = Label(window, text="Tasks")
 lbl1.grid(column=0, row=1)
 
+lbl3 = Label(window, text="Category")
+lbl3.grid(column=1, row=1)
+
+lbl4 = Label(window, text="Minutes")
+lbl4.grid(column=2, row=1)
+
 txt = Entry(window, width=10)
 txt.grid(column=0, row=2)
 
