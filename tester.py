@@ -3,7 +3,7 @@ from ScheduleItem import ScheduleItem
 
 #tests classes, combines other classes
 
-schedulethings = [["Math", "Homework", 15], ["Shower", "Chores", 20], ["Cooking", "Chores", 40]]
+schedulethings = [["Math", "Homework", 1], ["Shower", "Chores", 20], ["Cooking", "Chores", 40]]
 
 schedule = []
 
