@@ -1,6 +1,7 @@
 from Tkinter import *
 from Scheduler import Scheduler
 from ScheduleItem import *
+import threading
 
 scheduler = Scheduler()
 
@@ -10,6 +11,12 @@ window.geometry('700x700')
 
 lbl1 = Label(window, text="Tasks")
 lbl1.grid(column=0, row=1)
+
+lbl3 = Label(window, text="Category")
+lbl3.grid(column=1, row=1)
+
+lbl4 = Label(window, text="Minutes")
+lbl4.grid(column=2, row=1)
 
 txt = Entry(window, width=10)
 txt.grid(column=0, row=2)
@@ -30,6 +37,8 @@ category = []
 durations = []
 editButtons = []
 
+flag = False
+
 def addTask():
     global newTaskRowNum
     global txt
@@ -41,7 +50,7 @@ def addTask():
     lbl2 = Label(window, text=txt.get())
     taskList.append(lbl2)
     lbl2.grid(column=0, row=newTaskRowNum)
-    print(newTaskRowNum)
+    #print(newTaskRowNum)
     #op2 = OptionMenu(window, opvar, *scheduler.getCategories())
     op2 = Label(window, text=opvar.get())
     category.append(op2)
@@ -55,14 +64,13 @@ def addTask():
     editButtons.append(btn2)
     btn2.grid(column=4, row=newTaskRowNum)
 
-    #s = ScheduleItem(txt.get(), opvar.get(), min1.get())
-
-    #scheduleitems.append(s)
+    s = ScheduleItem(txt.get(), opvar.get(), int(min1.get()))
+    scheduleitems.append(s)
 
     txt.delete(0, len(txt.get()))
     opvar.set("")
     min1.delete(0, len(min1.get()))
-    print(taskList)
+    #print(taskList)
 
     newTaskRowNum += 1
     #print(newTaskRowNum)
@@ -79,7 +87,7 @@ def editTask(num):
     editTxt.grid(column=0, row=(num+2))
 
     ao = opvar.get()
-    editOp = OptionMenu(window, StringVar(window), *scheduler.getCategories())
+    editOp = OptionMenu(window, opvar, *scheduler.getCategories())
     opvar.set(ao)
     category[num].grid_forget()
     category[num] = editOp
@@ -115,6 +123,27 @@ def saveTask(num):
     editButtons[num] = Button(window, text="Edit Task", command=lambda:editTask(num))
     editButtons[num].grid(column=4, row=(num+2))
 
+flag = False
+
+def start():
+    flag = False
+    global scheduleitems
+    s = Scheduler()
+    for a in scheduleitems:
+        print(a.getDuration())
+        if not flag:
+            s.cycle(a)
+            print("done")
+
+def end():
+    flag = True
+
 btn = Button(window, text="Add Task", command=addTask)
-btn.grid(column=3, row=2)
+btn.grid(column=4, row=2)
+btn2 = Button(window, text="Start", command=start)
+btn2.grid(column=6, row=2)
+btn4 = Button(window, text="End", command=end)
+btn4.grid(column=6, row=3)
+btn4 = Button(window, text="Quit", command=window.destroy)
+btn4.grid(column=6, row=4)
 window.mainloop()
