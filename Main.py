@@ -1,6 +1,5 @@
 from Tkinter import *
 from Scheduler import Scheduler
-import ttk
 from ScheduleItem import *
 
 scheduler = Scheduler()
@@ -61,9 +60,9 @@ def addTask():
     #scheduleitems.append(s)
 
     txt.delete(0, len(txt.get()))
-    op1['menu'].delete(0, len(opvar.get()))
+    opvar.set("")
     min1.delete(0, len(min1.get()))
-    #print(taskList)
+    print(taskList)
 
     newTaskRowNum += 1
     #print(newTaskRowNum)
@@ -79,8 +78,9 @@ def editTask(num):
     taskList[num] = editTxt
     editTxt.grid(column=0, row=(num+2))
 
-    editOp = OptionMenu(window, opvar, *scheduler.getCategories())
-    opvar.set(opvar.get())
+    ao = opvar.get()
+    editOp = OptionMenu(window, StringVar(window), *scheduler.getCategories())
+    opvar.set(ao)
     category[num].grid_forget()
     category[num] = editOp
     editOp.grid(column=1, row=(num+2))
@@ -106,8 +106,7 @@ def saveTask(num):
     saveOp.grid(column=1, row=(num+2))
     category[num] = saveOp
 
-    saveMin = Label(window, text=taskList[num].get(), width=10)
-    print(min1.get())
+    saveMin = Label(window, text=durations[num].get(), width=5)
     durations[num].grid_forget()
     saveMin.grid(column=2, row=(num+2))
     durations[num] = saveMin
