@@ -25,7 +25,7 @@ opvar = StringVar(window)
 op1 = OptionMenu(window, opvar, *scheduler.getCategories())
 op1.grid(column=1, row=2)
 
-min1 = Entry(window, width=5)
+min1 = Entry(window, width=10)
 min1.grid(column=2, row=2)
 
 scheduleitems = []
@@ -93,7 +93,7 @@ def editTask(num):
     category[num] = editOp
     editOp.grid(column=1, row=(num+2))
 
-    editMin = Entry(window, width=5)
+    editMin = Entry(window, )
     editMin.insert(0, durations[num].cget("text"))
     durations[num].grid_forget()
     durations[num] = editMin
@@ -114,7 +114,7 @@ def saveTask(num):
     saveOp.grid(column=1, row=(num+2))
     category[num] = saveOp
 
-    saveMin = Label(window, text=durations[num].get(), width=5)
+    saveMin = Label(window, text=durations[num].get(), width=10)
     durations[num].grid_forget()
     saveMin.grid(column=2, row=(num+2))
     durations[num] = saveMin
