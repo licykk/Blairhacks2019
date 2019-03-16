@@ -1,6 +1,7 @@
 from Tkinter import *
 from Scheduler import Scheduler
 from ScheduleItem import *
+import threading
 
 scheduler = Scheduler()
 
@@ -31,7 +32,6 @@ durations = []
 editButtons = []
 
 flag = False
-flag2 = False
 
 def addTask():
     global newTaskRowNum
@@ -44,7 +44,7 @@ def addTask():
     lbl2 = Label(window, text=txt.get())
     taskList.append(lbl2)
     lbl2.grid(column=0, row=newTaskRowNum)
-    print(newTaskRowNum)
+    #print(newTaskRowNum)
     #op2 = OptionMenu(window, opvar, *scheduler.getCategories())
     op2 = Label(window, text=opvar.get())
     category.append(op2)
@@ -58,7 +58,7 @@ def addTask():
     editButtons.append(btn2)
     btn2.grid(column=4, row=newTaskRowNum)
 
-    s = ScheduleItem(txt.get(), opvar.get(), min1.get())
+    s = ScheduleItem(txt.get(), opvar.get(), int(min1.get()))
     scheduleitems.append(s)
 
     txt.delete(0, len(txt.get()))
@@ -117,16 +117,27 @@ def saveTask(num):
     editButtons[num] = Button(window, text="Edit Task", command=lambda:editTask(num))
     editButtons[num].grid(column=4, row=(num+2))
 
+flag = False
+
 def start():
+    flag = False
     global scheduleitems
     s = Scheduler()
-    s.cycle(scheduleitems[0])
+    for a in scheduleitems:
+        print(a.getDuration())
+        if not flag:
+            s.cycle(a)
+            print("done")
 
+def end():
+    flag = True
 
 btn = Button(window, text="Add Task", command=addTask)
-btn.grid(column=3, row=2)
+btn.grid(column=4, row=2)
 btn2 = Button(window, text="Start", command=start)
-btn2.grid(column=3, row=4)
-btn4 = Button(window, text="End")
-btn4.grid(column=3, row=5)
+btn2.grid(column=6, row=2)
+btn4 = Button(window, text="End", command=end)
+btn4.grid(column=6, row=3)
+btn4 = Button(window, text="Quit", command=window.destroy)
+btn4.grid(column=6, row=4)
 window.mainloop()

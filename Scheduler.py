@@ -32,18 +32,19 @@ class Scheduler:
 
     # Cycles through 25 min block, 5 min break, for one given scheduleitem
     def cycle(self, scheduleitem):
+        print("ckp")
         cycles = 0
         minutes = scheduleitem.duration
         if not (scheduleitem.category in self.offline_categories):
             for a in range(int(minutes)/25 + 1):
+                print("ckpt3")
                 block("websites.txt")
                 if minutes >= 25:
-                    time_end = time.time() + 60*25
                     cycles = cycles + 1
+                    minutes = minutes - 25
 
                     time.sleep(60*25)
                 else:
-                    time_end = time.time() + 60*minutes
                     print("ckpt")
                     cycles = 0
 
