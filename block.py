@@ -5,9 +5,9 @@ TAG = '# Blocked websites'
 HOSTS_PATH = '/etc/hosts'
 WEBSITES = "websites.txt"
 
-def block():
+def block(file_name):
 
-    with open(WEBSITES, 'r') as f:
+    with open(file_name, 'r') as f:
         lines = f.read().split('\n')
         websites_to_block = [l.strip() for l in lines if len(l)>0]
 
