@@ -1,4 +1,5 @@
-from Tkinter import *
+from tkinter import *
+from tkinter import messagebox
 from Scheduler import Scheduler
 from ScheduleItem import *
 import threading
@@ -104,24 +105,29 @@ def editTask(num):
     editButtons[num].grid(column=4, row=(num+2))
 
 def saveTask(num):
-    saveTask = Label(window, text=taskList[num].get(), width=10)
-    taskList[num].grid_forget()
-    saveTask.grid(column=0, row=(num+2))
-    taskList[num] = saveTask
+    if(durations[num].get().isdigit()):
+        saveTask = Label(window, text=taskList[num].get(), width=10)
+        taskList[num].grid_forget()
+        saveTask.grid(column=0, row=(num+2))
+        taskList[num] = saveTask
 
-    saveOp = Label(window, text=opvar.get())
-    category[num].grid_forget()
-    saveOp.grid(column=1, row=(num+2))
-    category[num] = saveOp
+        saveOp = Label(window, text=opvar.get())
+        category[num].grid_forget()
+        saveOp.grid(column=1, row=(num+2))
+        category[num] = saveOp
 
-    saveMin = Label(window, text=durations[num].get(), width=10)
-    durations[num].grid_forget()
-    saveMin.grid(column=2, row=(num+2))
-    durations[num] = saveMin
+        saveMin = Label(window, text=durations[num].get(), width=10)
+        durations[num].grid_forget()
+        saveMin.grid(column=2, row=(num+2))
+        durations[num] = saveMin
 
-    editButtons[num].grid_forget()
-    editButtons[num] = Button(window, text="Edit Task", command=lambda:editTask(num))
-    editButtons[num].grid(column=4, row=(num+2))
+        editButtons[num].grid_forget()
+        editButtons[num] = Button(window, text="Edit Task", command=lambda:editTask(num))
+        editButtons[num].grid(column=4, row=(num+2))
+    else:
+        print(durations[num].get())
+        messagebox.showerror("Error!", "Please enter a number for the duration.")
+
 
 flag = False
 
