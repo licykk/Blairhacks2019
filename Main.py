@@ -30,6 +30,9 @@ category = []
 durations = []
 editButtons = []
 
+flag = False
+flag2 = False
+
 def addTask():
     global newTaskRowNum
     global txt
@@ -55,14 +58,13 @@ def addTask():
     editButtons.append(btn2)
     btn2.grid(column=4, row=newTaskRowNum)
 
-    #s = ScheduleItem(txt.get(), opvar.get(), min1.get())
-
-    #scheduleitems.append(s)
+    s = ScheduleItem(txt.get(), opvar.get(), min1.get())
+    scheduleitems.append(s)
 
     txt.delete(0, len(txt.get()))
     opvar.set("")
     min1.delete(0, len(min1.get()))
-    print(taskList)
+    #print(taskList)
 
     newTaskRowNum += 1
     #print(newTaskRowNum)
@@ -79,7 +81,7 @@ def editTask(num):
     editTxt.grid(column=0, row=(num+2))
 
     ao = opvar.get()
-    editOp = OptionMenu(window, StringVar(window), *scheduler.getCategories())
+    editOp = OptionMenu(window, opvar, *scheduler.getCategories())
     opvar.set(ao)
     category[num].grid_forget()
     category[num] = editOp
@@ -115,6 +117,16 @@ def saveTask(num):
     editButtons[num] = Button(window, text="Edit Task", command=lambda:editTask(num))
     editButtons[num].grid(column=4, row=(num+2))
 
+def start():
+    global scheduleitems
+    s = Scheduler()
+    s.cycle(scheduleitems[0])
+
+
 btn = Button(window, text="Add Task", command=addTask)
 btn.grid(column=3, row=2)
+btn2 = Button(window, text="Start", command=start)
+btn2.grid(column=3, row=4)
+btn4 = Button(window, text="End")
+btn4.grid(column=3, row=5)
 window.mainloop()

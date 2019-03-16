@@ -19,11 +19,9 @@ def whitelistSite(file_name, site):
         f.truncate()
         f.close()
 
-whitelistSite("websites.txt", "www.fanfiction.net")
-
 # Will block websites in websites.txt or a file given as param
 def block(file_name):
-
+    print("filenameblock")
     with open(file_name, 'r') as f:
         lines = f.read().split('\n')
         websites_to_block = [l.strip() for l in lines if len(l)>0]
@@ -49,6 +47,7 @@ def block(file_name):
         #    print('')
 
         for w in websites_to_block:
+            #print(w)
             lines.append('127.0.0.1 %s' %w)
         h.seek(0)
         h.write('\n'.join(lines))

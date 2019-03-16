@@ -1,13 +1,14 @@
 import time
 import os
 from block import block
+import threading
+
 #assume data is in the form of a 2d array
 #schedule = alexa_data()
 #schduler basicllay takes things from the schedule and does things
 class Scheduler:
     categories = ["Homework", "Work", "Chores"]
     offline_categories = ["Chores"]
-    schedule = []
     short_break_time = 5
     long_break_time = 20
 
@@ -34,33 +35,33 @@ class Scheduler:
         cycles = 0
         minutes = scheduleitem.duration
         if not (scheduleitem.category in self.offline_categories):
-            for a in range(minutes/25 + 1):
+            for a in range(int(minutes)/25 + 1):
+                block("websites.txt")
                 if minutes >= 25:
                     time_end = time.time() + 60*25
                     cycles = cycles + 1
-                    block("websites.txt")
+
+                    time.sleep(60*25)
                 else:
                     time_end = time.time() + 60*minutes
+                    print("ckpt")
                     cycles = 0
-                while time.time() < time_end:
-                    #if user ends, break
-                    #block sites
-                    ""
+
+                    time.sleep(60*minutes)
+                print("end first timer")
                 block("emptyfile.txt")
                 #alert alexa
                 #sound for end
                 os.system("afplay ding.wav")
                 if scheduleitem.duration < 15:
                     break_end = time.time()
+                    print("ckpt2")
                 else:
                     if cycles < 4:
-                        break_end = time.time() + 60*self.short_break_time
+                        time.sleep(60*self.short_break_time)
                     else:
-                        break_end = time.time() + 60*self.long_break_time
+                        time.sleep(60*self.long_break_time)
                         cycles = 0
-                while time.time() < time_end:
-                    #quit if signaled
-                    ""
                 #sound for end
                 os.system("afplay ding.wav")
         else:
