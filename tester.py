@@ -11,3 +11,4 @@ for a in schedulethings:
 
 scheduler = Scheduler()
 scheduler.setSchedule(schedule)
+print(scheduler.schedule[0].duration)
