@@ -3,6 +3,7 @@ from tkinter import messagebox
 from Scheduler import Scheduler
 from ScheduleItem import *
 import threading
+from AlexaDB import updateFromDatabase
 
 scheduler = Scheduler()
 
@@ -43,7 +44,6 @@ flag = False
 def addItemFromDatabase(name, duration):
 	scheduleitem.append(new ScheduleItem(name, "Homework", duration))
 
-
 def addTask():
     global newTaskRowNum
     global txt
@@ -83,6 +83,7 @@ def addTask():
     op1.grid(column=1, row=newTaskRowNum)
     min1.grid(column=2, row=newTaskRowNum)
     btn.grid(column=4, row=newTaskRowNum)
+
 def editTask(num):
     #print(taskList[num].cget("text"))
     editTxt = Entry(window, width=10)
@@ -156,4 +157,5 @@ btn4 = Button(window, text="End", command=end)
 btn4.grid(column=6, row=3)
 btn4 = Button(window, text="Quit", command=window.destroy)
 btn4.grid(column=6, row=4)
+updateFromDatabase()
 window.mainloop()
