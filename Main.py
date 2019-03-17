@@ -11,7 +11,19 @@ def updateFromDatabase():
     table = dynamodb.Table('blairfinalfinaltable')
     data = table.scan()["Items"]
     for task in data:
-	    addItemFromDatabase(task["activityName"], task["duration"])
+        addItemFromDatabase(task["activityName"], task["duration"])
+        newTaskRowNum += 1
+        lbl2 = Label(window, text=task["activityName"])
+        taskList.append(lbl2)
+        lbl2.grid(column=0, row=newTaskRowNum)
+
+        op2 = Label(window, text=opvar.set(1))
+        category.append(op2)
+        op2.grid(column=1, row=newTaskRowNum)
+
+        min2 = Label(window, text=task["duration"])
+        durations.append(min2)
+        min2.grid(column=2, row=newTaskRowNum)
 
 
 scheduler = Scheduler()
