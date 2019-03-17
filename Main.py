@@ -3,7 +3,16 @@ from Tkinter import *
 from Scheduler import Scheduler
 from ScheduleItem import *
 import threading
-from AlexaDB import updateFromDatabase
+import boto3
+import json
+
+def updateFromDatabase():
+    dynamodb=boto3.resource('dynamodb',aws_access_key_id='AKIAJMEYIZVMTHDEJORQ',aws_secret_access_key='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',region_name='us-east-1')
+    table = dynamodb.Table('blairfinalfinaltable')
+    data = table.scan()["Items"]
+    for task in data:
+	    addItemFromDatabase(task["activityName"], task["duration"])
+
 
 scheduler = Scheduler()
 
@@ -42,7 +51,7 @@ editButtons = []
 flag = False
 
 def addItemFromDatabase(name, duration):
-	scheduleitem.append(new ScheduleItem(name, "Homework", duration))
+	scheduleitems.append(ScheduleItem(name, "Homework", duration))
 
 def addTask():
     global newTaskRowNum
@@ -158,4 +167,6 @@ btn4.grid(column=6, row=3)
 btn4 = Button(window, text="Quit", command=window.destroy)
 btn4.grid(column=6, row=4)
 updateFromDatabase()
+
+print(scheduleitems)
 window.mainloop()
