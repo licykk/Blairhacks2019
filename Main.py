@@ -39,6 +39,10 @@ editButtons = []
 
 flag = False
 
+def addItemFromDatabase(name, duration):
+	scheduleitem.append(new ScheduleItem(name, "Homework", duration))
+
+
 def addTask():
     global newTaskRowNum
     global txt
