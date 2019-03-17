@@ -1,5 +1,5 @@
-from tkinter import *
-from tkinter import messagebox
+from Tkinter import *
+#from Tkinter import messagebox
 from Scheduler import Scheduler
 from ScheduleItem import *
 import threading
